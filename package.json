@@ -15,6 +15,7 @@
     "@nuxt/ui": "4.1.0",
     "@unhead/vue": "^2.0.19",
     "@vueuse/core": "^13.9.0",
+    "bottleneck": "^2.19.5",
     "dotenv": "^17.2.3",
     "eslint": "^9.39.0",
     "nuxt": "^4.2.0",
