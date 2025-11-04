@@ -31,7 +31,8 @@ export const getVideoDirectLink = async (videoId: VideoId) => {
 
   // get stream url from metadata
   // TODO: search for the best format
-  const streamUrl = data.formats.pop().manifest_url
+  const lastFormat = data.formats.pop()
+  const streamUrl = lastFormat.manifest_url || lastFormat.url
 
   // save cache and return
   videoCache.set(videoId, {
