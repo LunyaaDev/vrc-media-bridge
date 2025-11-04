@@ -15,8 +15,17 @@
         indicate compatibility.
       </p>
       <p class="text-muted text-xs text-center">
+        References to other websites, platforms, or services are provided for
+        informational or compatibility purposes only.
+      </p>
+      <p class="text-muted text-xs text-center">
+        All trademarks, service marks, and company names are the property of
+        their respective owners.
+      </p>
+      <p class="text-muted text-xs text-center">
         Use of this tool is at your own discretion and subject to VRChat's Terms
-        of Service and Community Guidelines.
+        of Service and Community Guidelines, as well as the terms of any other
+        referenced platforms or services.
       </p>
     </div>
   </UFooter>

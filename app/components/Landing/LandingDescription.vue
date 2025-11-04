@@ -6,7 +6,17 @@ const platformNames = computed(() => {
 
 <template>
   <div>
-    <p class="w-full text-center text-2xl"> Supported platforms: </p>
+    <p class="w-full text-center">
+      To watch a video from a supported platform in VRChat, simply prepend the
+      video's URL with:
+    </p>
+    <p class="w-full text-center">
+      <code>https://vrcpp.net/?u=</code>
+    </p>
+    <p class="w-full text-center pt-4">
+      Or use the link generator above to create it automatically.
+    </p>
+    <p class="w-full text-center text-2xl pt-8"> Supported platforms: </p>
     <p class="w-full text-center">
       <span v-for="platform of platformNames" :key="platform" class="px-4">
         {{ platform }}
