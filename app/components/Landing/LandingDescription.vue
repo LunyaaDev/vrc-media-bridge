@@ -11,7 +11,7 @@ const platformNames = computed(() => {
       video's URL with:
     </p>
     <p class="w-full text-center">
-      <code>https://vrcpp.net/?u=</code>
+      <code>{{ convertUrlPrefix }}</code>
     </p>
     <p class="w-full text-center pt-4">
       Or use the link generator above to create it automatically.

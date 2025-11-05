@@ -6,9 +6,6 @@ const copyDisabled = computed(() => {
   return !urlToId(url.value)
 })
 const { copy, copied } = useClipboard()
-
-const convertUrlPrefix = 'http://localhost:3001/?u='
-const convertUrlPrefixWidth = '44'
 </script>
 
 <template>
@@ -18,7 +15,7 @@ const convertUrlPrefixWidth = '44'
     size="xl"
     placeholder="https://..."
     :ui="{
-      base: `pl-${convertUrlPrefixWidth}`,
+      base: `pl-44`,
       leading: 'pointer-events-none',
     }"
   >
