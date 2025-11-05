@@ -2,10 +2,10 @@ import type { supportedPlatforms } from '../utils/platforms'
 
 export interface SupportedPlatform {
   name: string
-  urls: {
-    regex: RegExp
-    examples: string[]
-  }[]
+
+  regex: RegExp[]
+  examples?: string[]
+
   videoKeyToUrl: (key: string) => string
 }
 
