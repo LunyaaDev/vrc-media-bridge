@@ -45,8 +45,18 @@ export const supportedPlatforms = {
     videoKeyToUrl: (key) => `https://www.xnxx.com/video-${key}/s`,
   },
 
+  youporn: <SupportedPlatform>{
+    name: 'YouPorn',
+    urls: [
+      {
+        regex: /^(https:\/\/)?(www\.)?youporn.com\/watch\/(?<key>[0-9]+)/,
+      },
+    ],
+    videoKeyToUrl: (key) => `https://www.youporn.com/watch/${key}`,
+  },
+
   twitter: <SupportedPlatform>{
-    name: 'X / Twitter',
+    name: 'X (Twitter)',
     urls: [
       {
         regex:
