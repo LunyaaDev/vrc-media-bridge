@@ -10,11 +10,10 @@ const platform = computed(() => {
 
 <template>
   <div>
-    <h1 class="w-full text-center text-5xl"><b>VRChat-P*RN-PROXY</b></h1>
+    <h1 class="w-full text-center text-5xl"><b>VRC Media Bridge</b></h1>
     <p class="w-full text-center">
       The easiest way to play
       <span>{{ platform }}</span>
-
       videos in VRChat
     </p>
   </div>

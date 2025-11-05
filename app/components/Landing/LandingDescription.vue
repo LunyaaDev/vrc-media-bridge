@@ -1,26 +1,40 @@
 <script setup lang="ts">
-const platformNames = computed(() => {
-  return Object.values(supportedPlatforms).map((x) => x.name)
-})
+import { useClipboard } from '@vueuse/core'
+
+const { copy, copied } = useClipboard()
 </script>
 
 <template>
-  <div>
-    <p class="w-full text-center">
-      To watch a video from a supported platform in VRChat, simply prepend the
-      video's URL with:
+  <div class="text-center space-y-4">
+    <p>
+      Want to watch your favorite videos in VRChat? Just put this before the
+      link:
     </p>
-    <p class="w-full text-center">
-      <code>{{ convertUrlPrefix }}</code>
-    </p>
-    <p class="w-full text-center pt-4">
-      Or use the link generator above to create it automatically.
-    </p>
-    <p class="w-full text-center text-2xl pt-8"> Supported platforms: </p>
-    <p class="w-full text-center">
-      <span v-for="platform of platformNames" :key="platform" class="px-4">
-        {{ platform }}
+
+    <UButton
+      class="text-lg font-mono px-2 py-1 rounded cursor-pointer transition bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-indigo-200 dark:hover:bg-indigo-700"
+      :trailing-icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
+      @click="copy(convertUrlPrefix)"
+    >
+      <code>
+        {{ convertUrlPrefix }}
+      </code>
+    </UButton>
+
+    <p> Or use the link generator above — it'll give you the right link. </p>
+
+    <p> Works instantly, no setup, no sign-in. </p>
+
+    <h2 class="text-2xl pt-6 font-semibold">Supported platforms:</h2>
+
+    <div class="flex flex-wrap justify-center gap-3 pt-2">
+      <span
+        v-for="platform of supportedPlatforms"
+        :key="platform.name"
+        class="px-3 py-1 rounded-lg text-sm bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
+      >
+        {{ platform.name }}
       </span>
-    </p>
+    </div>
   </div>
 </template>

@@ -8,7 +8,7 @@ import Bottleneck from 'bottleneck'
 const YTDlpWrap = <typeof YTDlpWrapDefault>YTDlpWrapDefault.default
 const ytDlpWrap = new YTDlpWrap('/usr/local/bin/yt-dlp')
 
-const limiter = new Bottleneck.Group({
+const limiterGroup = new Bottleneck.Group({
   maxConcurrent: 1,
 })
 
@@ -19,7 +19,7 @@ const limiter = new Bottleneck.Group({
  */
 export const getVideoDirectLink = async (videoId: VideoId) => {
   // put job in the queue for that videoId
-  return await limiter.key(videoId).schedule(async () => {
+  return await limiterGroup.key(videoId).schedule(async () => {
     const cacheRes = videoCache.get(videoId)
 
     // check if cache is available and not expired
