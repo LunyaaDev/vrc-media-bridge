@@ -65,6 +65,15 @@ const supportedPlatforms: SupportedPlatform[] = [
     ],
     videoKeyToUrl: (key) => `https://x.com/anything/status/${key}`,
   },
+  {
+    slug: 'reddit',
+    name: 'Reddit',
+    isNsfw: false,
+    regex: [
+      /^(https:\/\/)?(www\.)?reddit.com\/r\/(?<key>[a-zA-Z0-9-_]+\/comments\/[a-z0-9]+)/,
+    ],
+    videoKeyToUrl: (key) => `https://www.reddit.com/r/${key}`,
+  },
 
   {
     slug: 'rule34video',
