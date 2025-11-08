@@ -40,7 +40,7 @@ export const supportedPlatforms = {
   twitter: <SupportedPlatform>{
     name: 'X (Twitter)',
     regex: [
-      /^(https:\/\/)?(www\.)?(x|twitter|fxtwitter|fixvx).com\/[a-z0-9]+\/status\/(?<key>[0-9]+)/,
+      /^(https:\/\/)?(www\.)?(x|twitter|fxtwitter|fixvx|xcancel).com\/[a-z0-9]+\/status\/(?<key>[0-9]+)/,
     ],
     videoKeyToUrl: (key) => `https://x.com/anything/status/${key}`,
   },
