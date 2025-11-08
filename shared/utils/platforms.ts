@@ -9,7 +9,6 @@ import { useConfig } from '@@/composables/useConfig'
 export const getEnabledSupportedPlatforms = () => {
   const config = useConfig()
 
-  console.log(config)
   return supportedPlatforms.filter(
     (platform) => config.enableNsfw || !platform.isNsfw,
   )
