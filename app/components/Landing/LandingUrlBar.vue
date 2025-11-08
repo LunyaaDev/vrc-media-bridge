@@ -2,10 +2,15 @@
 import { useClipboard } from '@vueuse/core'
 
 const url = ref('')
-const copyDisabled = computed(() => {
-  return !urlToId(url.value)
+const isUrlValid = computed(() => {
+  return !!urlToId(url.value)
 })
-const { copy, copied } = useClipboard()
+const { copy, copied, isSupported } = useClipboard()
+
+const copyUrl = () => {
+  if (!isSupported) return
+  copy(convertUrlPrefix + url.value)
+}
 </script>
 
 <template>
@@ -22,18 +27,21 @@ const { copy, copied } = useClipboard()
     <template #leading>
       <p class="text-sm text-muted"> {{ convertUrlPrefix }} </p>
     </template>
-
-    <template v-if="url?.length" #trailing>
-      <UButton
-        variant="link"
-        size="sm"
-        aria-label="Copy to clipboard"
-        class="cursor-pointer size-6"
-        :color="copied ? 'success' : 'neutral'"
-        :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
-        :disabled="copyDisabled"
-        @click="copy(convertUrlPrefix + url)"
-      />
-    </template>
   </UInput>
+
+  <div class="h-10 pt-2 flex flex-wrap justify-center">
+    <UButton
+      v-if="isUrlValid"
+      variant="subtle"
+      size="sm"
+      aria-label="Copy to clipboard"
+      class="cursor-pointer"
+      :color="copied ? 'success' : 'neutral'"
+      :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
+      :disabled="!isSupported"
+      @click="copyUrl"
+    >
+      {{ copied ? 'Copied' : 'Copy' }} URL
+    </UButton>
+  </div>
 </template>
