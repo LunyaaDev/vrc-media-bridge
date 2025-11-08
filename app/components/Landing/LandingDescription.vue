@@ -2,6 +2,8 @@
 import { useClipboard } from '@vueuse/core'
 
 const { copy, copied } = useClipboard()
+
+const platforms = computed(() => getEnabledSupportedPlatforms())
 </script>
 
 <template>
@@ -29,7 +31,7 @@ const { copy, copied } = useClipboard()
 
     <div class="flex flex-wrap justify-center gap-3 pt-2">
       <span
-        v-for="platform of supportedPlatforms"
+        v-for="platform of platforms"
         :key="platform.name"
         class="px-3 py-1 rounded-lg text-sm bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
       >

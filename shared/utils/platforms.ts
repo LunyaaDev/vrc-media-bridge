@@ -1,7 +1,23 @@
 import type { SupportedPlatform } from '../interfaces/Video'
+import { useConfig } from '@@/composables/useConfig'
 
-export const supportedPlatforms = {
-  pornhub: <SupportedPlatform>{
+/**
+ * gets the enabled supportedPlatforms based on the RuntimeConfig
+ *
+ * @returns
+ */
+export const getEnabledSupportedPlatforms = () => {
+  const config = useConfig()
+
+  console.log(config)
+  return supportedPlatforms.filter(
+    (platform) => config.enableNsfw || !platform.isNsfw,
+  )
+}
+
+const supportedPlatforms: SupportedPlatform[] = [
+  {
+    slug: 'pornhub',
     name: 'Pornhub',
     isNsfw: true,
     regex: [
@@ -10,8 +26,8 @@ export const supportedPlatforms = {
     videoKeyToUrl: (key) =>
       `https://www.pornhub.com/view_video.php?viewkey=${key}`,
   },
-
-  xhamster: <SupportedPlatform>{
+  {
+    slug: 'xhamster',
     name: 'xHamster',
     isNsfw: true,
     regex: [
@@ -19,30 +35,30 @@ export const supportedPlatforms = {
     ],
     videoKeyToUrl: (key) => `https://xhamster.com/videos/${key}`,
   },
-
-  xvideos: <SupportedPlatform>{
+  {
+    slug: 'xvideos',
     name: 'xVideos',
     isNsfw: true,
     regex: [/^(https:\/\/)?(www\.)?xvideos.com\/video\.(?<key>[0-9a-zA-Z-]+)/],
     videoKeyToUrl: (key) => `https://www.xvideos.com/video.${key}/s`,
   },
-
-  xnxx: <SupportedPlatform>{
+  {
+    slug: 'xnxx',
     name: 'XNXX',
     isNsfw: true,
     regex: [/^(https:\/\/)?(www\.)?xnxx.com\/video-(?<key>[0-9a-zA-Z-]+)/],
     videoKeyToUrl: (key) => `https://www.xnxx.com/video-${key}/s`,
   },
-
-  youporn: <SupportedPlatform>{
+  {
+    slug: 'youporn',
     name: 'YouPorn',
     isNsfw: true,
     regex: [/^(https:\/\/)?(www\.)?youporn.com\/watch\/(?<key>[0-9]+)/],
-
     videoKeyToUrl: (key) => `https://www.youporn.com/watch/${key}`,
   },
 
-  twitter: <SupportedPlatform>{
+  {
+    slug: 'twitter',
     name: 'X (Twitter)',
     isNsfw: false,
     regex: [
@@ -51,10 +67,11 @@ export const supportedPlatforms = {
     videoKeyToUrl: (key) => `https://x.com/anything/status/${key}`,
   },
 
-  rule34video: <SupportedPlatform>{
+  {
+    slug: 'rule34video',
     name: 'Rule34 Video',
     isNsfw: true,
     regex: [/^(https:\/\/)?(www\.)?rule34video.com\/video\/(?<key>[0-9]+)/],
     videoKeyToUrl: (key) => `https://rule34video.com/video/${key}/s`,
   },
-}
+]

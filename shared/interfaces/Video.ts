@@ -1,6 +1,5 @@
-import type { supportedPlatforms } from '../utils/platforms'
-
 export interface SupportedPlatform {
+  slug: string
   name: string
   isNsfw: boolean
   regex: RegExp[]
@@ -9,5 +8,4 @@ export interface SupportedPlatform {
   videoKeyToUrl: (key: string) => string
 }
 
-export type VideoId = `${Platform}:${string}`
-export type Platform = keyof typeof supportedPlatforms
+export type VideoId = `${string}:${string}`

@@ -3,7 +3,7 @@ import { useInterval } from '@vueuse/core'
 const counter = useInterval(1000)
 
 const platform = computed(() => {
-  const list = Object.values(supportedPlatforms).map((x) => x.name)
+  const list = getEnabledSupportedPlatforms().map((x) => x.name)
   return list[counter.value % list.length]
 })
 </script>

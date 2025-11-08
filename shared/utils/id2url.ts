@@ -1,5 +1,5 @@
-import type { Platform, VideoId } from '#shared/interfaces/Video'
-import { supportedPlatforms } from '#shared/utils/platforms'
+import type { VideoId } from '#shared/interfaces/Video'
+import { getEnabledSupportedPlatforms } from '#shared/utils/platforms'
 
 /**
  * get video url from id
@@ -7,9 +7,14 @@ import { supportedPlatforms } from '#shared/utils/platforms'
  * @returns
  */
 export const id2url = (id: VideoId): null | URL => {
-  const [platform, videoKey] = <[Platform, string]>id.split(':')
+  const [slug, videoKey] = <[string, string]>id.split(':')
 
-  const urlString = supportedPlatforms[platform].videoKeyToUrl(videoKey)
+  // get platform by slug
+  const platform = getEnabledSupportedPlatforms().find((x) => x.slug == slug)
+  if (!platform) return null
+
+  // get url for platform
+  const urlString = platform.videoKeyToUrl(videoKey)
   const url = new URL(urlString)
 
   return url
