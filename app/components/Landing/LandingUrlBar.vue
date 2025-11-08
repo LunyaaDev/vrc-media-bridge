@@ -11,10 +11,31 @@ const copyUrl = () => {
   if (!isSupported) return
   copy(convertUrlPrefix + url.value)
 }
+
+function handlePasteEvent(this: HTMLInputElement, e: ClipboardEvent) {
+  const pastedText = e.clipboardData?.getData('text')
+  if (!pastedText) return
+  url.value = pastedText
+
+  // copy url if supported
+  if (urlToId(url.value)) copyUrl()
+}
+
+const urlInput = useTemplateRef('urlInput')
+onMounted(() => {
+  const el = urlInput.value?.inputRef
+  el?.addEventListener('paste', handlePasteEvent)
+})
+
+onBeforeUnmount(() => {
+  const el = urlInput.value?.inputRef
+  el?.removeEventListener('paste', handlePasteEvent)
+})
 </script>
 
 <template>
   <UInput
+    ref="urlInput"
     v-model="url"
     class="w-full"
     size="xl"
