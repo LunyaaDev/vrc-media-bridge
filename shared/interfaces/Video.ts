@@ -2,7 +2,7 @@ import type { supportedPlatforms } from '../utils/platforms'
 
 export interface SupportedPlatform {
   name: string
-
+  isNsfw: boolean
   regex: RegExp[]
   examples?: string[]
 
