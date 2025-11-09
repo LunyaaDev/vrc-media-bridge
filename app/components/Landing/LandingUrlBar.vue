@@ -21,6 +21,13 @@ function handlePasteEvent(this: HTMLInputElement, e: ClipboardEvent) {
   if (urlToId(url.value)) copyUrl()
 }
 
+const prefixRef = useTemplateRef('prefix')
+
+const prefixWidth = computed(() => {
+  if (!prefixRef.value) return 0
+  return prefixRef.value.getBoundingClientRect().width + 12
+})
+
 const urlInput = useTemplateRef('urlInput')
 onMounted(() => {
   const el = urlInput.value?.inputRef
@@ -40,13 +47,13 @@ onBeforeUnmount(() => {
     class="w-full"
     size="xl"
     placeholder="https://..."
+    :style="{ paddingLeft: prefixWidth + 'px' }"
     :ui="{
-      base: `pl-44`,
       leading: 'pointer-events-none',
     }"
   >
     <template #leading>
-      <p class="text-sm text-muted"> {{ convertUrlPrefix }} </p>
+      <p ref="prefix" class="text-sm text-muted"> {{ convertUrlPrefix }} </p>
     </template>
   </UInput>
 
