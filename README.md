@@ -1,75 +1,21 @@
-# Nuxt Minimal Starter
+# VRC Media Bridge
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+VRC Media Bridge lets you play videos from supported sites directly in VRChat. It grabs the direct video stream (usually `.m3u8` or `.mp4`) and redirects to it, making it easy to watch in-world.
 
-## Setup
+## Features
 
-Make sure to install dependencies:
+- Fetches the direct stream link and redirects to it
+- Web UI for easily prepending the VRChat prefix
+- Supports both general and NSFW platforms
 
-```bash
-# npm
-npm install
+# Supported Platforms
 
-# pnpm
-pnpm install
+**🟢 General:** `X (Twitter)` `Reddit`
 
-# yarn
-yarn install
+**🔴 NSFW:** `Pornhub` `xHamster` `xVideos` `XNXX` `YouPorn` `Rule34 Video`
 
-# bun
-bun install
+NSFW platforms are only enabled if you set the environment variable:
+
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+NUXT_PUBLIC_ENABLE_NSFW=true
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
