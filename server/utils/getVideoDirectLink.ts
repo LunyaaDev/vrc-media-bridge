@@ -3,6 +3,10 @@ import { id2url } from '#shared/utils/id2url'
 import { videoCache } from './videoCache'
 import YTDlpWrapDefault from 'yt-dlp-wrap'
 import Bottleneck from 'bottleneck'
+import {
+  prometheusPlatformRequestDurationSeconds,
+  prometheusPlatformRequestsTotal,
+} from './prometheus'
 
 // @ts-expect-error default not found
 const YTDlpWrap = <typeof YTDlpWrapDefault>YTDlpWrapDefault.default
@@ -18,34 +22,57 @@ const limiterGroup = new Bottleneck.Group({
  * @returns
  */
 export const getVideoDirectLink = async (videoId: VideoId) => {
-  // put job in the queue for that videoId
-  return await limiterGroup.key(videoId).schedule(async () => {
-    const cacheRes = videoCache.get(videoId)
+  const providerSlug = videoId.split(':')[0]
 
-    // check if cache is available and not expired
-    if (cacheRes && cacheRes.expires >= new Date()) {
-      return cacheRes.directStreamUrl
-    }
+  let cached = false
+  let successful = false
 
-    // get url from the video
-    const url = id2url(videoId)
+  const endTimer = prometheusPlatformRequestDurationSeconds.startTimer()
 
-    if (!url) return null
+  try {
+    // put job in the queue for that videoId
+    return await limiterGroup.key(videoId).schedule(async () => {
+      const cacheRes = videoCache.get(videoId)
 
-    // call yt-dlp to get video metadata and parse it
-    const res = await ytDlpWrap.execPromise(['-j', url.toString()])
-    const data = JSON.parse(res)
+      // check if cache is available and not expired
+      if (cacheRes && cacheRes.expires >= new Date()) {
+        cached = true
+        successful = true
+        return cacheRes.directStreamUrl
+      }
 
-    // get stream url from metadata
-    // TODO: search for the best format
-    const lastFormat = data.formats.pop()
-    const streamUrl = lastFormat.manifest_url || lastFormat.url
+      // get url from the video
+      const url = id2url(videoId)
 
-    // save cache and return
-    videoCache.set(videoId, {
-      directStreamUrl: streamUrl,
-      expires: new Date(new Date().getTime() + 2 * 60 * 60 * 1000),
+      if (!url) {
+        return null
+      }
+
+      // call yt-dlp to get video metadata and parse it
+      const res = await ytDlpWrap.execPromise(['-j', url.toString()])
+      const data = JSON.parse(res)
+
+      // get stream url from metadata
+      // TODO: search for the best format
+      const lastFormat = data.formats.pop()
+      const streamUrl = lastFormat.manifest_url || lastFormat.url
+
+      // save cache and return
+      videoCache.set(videoId, {
+        directStreamUrl: streamUrl,
+        expires: new Date(new Date().getTime() + 2 * 60 * 60 * 1000),
+      })
+
+      if (streamUrl) successful = true
+      return streamUrl
     })
-    return streamUrl
-  })
+  } finally {
+    const labels = {
+      provider: providerSlug,
+      successful: successful ? 1 : 0,
+      cached: cached ? 1 : 0,
+    }
+    prometheusPlatformRequestsTotal.labels(labels).inc(1)
+    endTimer(labels)
+  }
 }
