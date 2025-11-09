@@ -7,6 +7,13 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       enableNsfw: false,
+
+      rybbitAnalytics: {
+        // NUXT_PUBLIC_RYBBIT_ANALYTICS_HOST=<your-host>
+        host: '',
+        // NUXT_PUBLIC_RYBBIT_ANALYTICS_SITE_ID=<your-site-id>
+        siteId: '',
+      },
     },
   },
 })
