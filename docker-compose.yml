@@ -1,0 +1,7 @@
+services:
+  app:
+    image: lunyaadev/vrc-media-bridge:latest
+    environment:
+      NUXT_PUBLIC_ENABLE_NSFW: false
+    ports:
+      - "3000:3000"
