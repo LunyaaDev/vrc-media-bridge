@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
       rybbitAnalytics: {
         // NUXT_PUBLIC_RYBBIT_ANALYTICS_HOST=<your-host>
-        host: '',
+        host: 'https://app.rybbit.io',
         // NUXT_PUBLIC_RYBBIT_ANALYTICS_SITE_ID=<your-site-id>
         siteId: '',
       },
