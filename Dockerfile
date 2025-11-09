@@ -15,6 +15,10 @@ RUN pnpm run build
 FROM node:22-alpine
 WORKDIR /app
 
+RUN apk add --no-cache curl bash python3
+RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp \
+    && chmod +x /usr/local/bin/yt-dlp
+
 # Only `.output` folder is needed from the build stage
 COPY --from=build /app/.output/ ./
 
