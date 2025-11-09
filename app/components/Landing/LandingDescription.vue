@@ -16,10 +16,10 @@ const platforms = computed(() => getEnabledSupportedPlatforms())
     <UButton
       class="text-lg font-mono px-2 py-1 rounded cursor-pointer transition bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-indigo-200 dark:hover:bg-indigo-700"
       :trailing-icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
-      @click="copy(convertUrlPrefix)"
+      @click="copy(getConvertUrlPrefix())"
     >
       <code>
-        {{ convertUrlPrefix }}
+        {{ getConvertUrlPrefix() }}
       </code>
     </UButton>
 

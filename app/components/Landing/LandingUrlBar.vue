@@ -9,7 +9,7 @@ const { copy, copied, isSupported } = useClipboard()
 
 const copyUrl = () => {
   if (!isSupported) return
-  copy(convertUrlPrefix + url.value)
+  copy(getConvertUrlPrefix() + url.value)
 }
 
 function handlePasteEvent(this: HTMLInputElement, e: ClipboardEvent) {
@@ -53,7 +53,9 @@ onBeforeUnmount(() => {
     }"
   >
     <template #leading>
-      <p ref="prefix" class="text-sm text-muted"> {{ convertUrlPrefix }} </p>
+      <p ref="prefix" class="text-sm text-muted">
+        {{ getConvertUrlPrefix() }}
+      </p>
     </template>
   </UInput>
 
