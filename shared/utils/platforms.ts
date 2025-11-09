@@ -1,5 +1,5 @@
 import type { SupportedPlatform } from '../interfaces/Video'
-import { useConfig } from '@@/composables/useConfig'
+import { getConfig } from '#shared/utils/getConfig'
 
 /**
  * gets the enabled supportedPlatforms based on the RuntimeConfig
@@ -7,7 +7,7 @@ import { useConfig } from '@@/composables/useConfig'
  * @returns
  */
 export const getEnabledSupportedPlatforms = () => {
-  const config = useConfig()
+  const config = getConfig()
 
   return supportedPlatforms.filter(
     (platform) => config.enableNsfw || !platform.isNsfw,
