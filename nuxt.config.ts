@@ -3,7 +3,12 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
-  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxt/scripts'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/ui',
+    '@nuxt/scripts',
+    '@artmizu/nuxt-prometheus',
+  ],
   runtimeConfig: {
     public: {
       enableNsfw: false,
@@ -15,5 +20,8 @@ export default defineNuxtConfig({
         siteId: '',
       },
     },
+  },
+  prometheus: {
+    verbose: false,
   },
 })
